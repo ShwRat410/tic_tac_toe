@@ -3,11 +3,11 @@ import { useState } from "react"
 export default function Player({name,symbol}){
     const[isEditing,setIsEditing]=useState(false);
     function handleEdit(){
-        setIsEditing(true)
+        setIsEditing((editing)=>!editing)
     }
     let editName;
     if(isEditing){
-        editName= (<input type="text"></input>)
+        editName= (<input type="text" required value={name}></input>)
     }else{
         editName = (<span className="player-name">{name}</span>)
     }
@@ -17,7 +17,7 @@ export default function Player({name,symbol}){
             {editName}
             <span className="player-symbol">{symbol}</span>
             </span>
-            <button onClick={handleEdit}>Edit</button>
+            <button onClick={handleEdit}>{isEditing?'Save':'Edit'}</button>
           </li>
     )
 }

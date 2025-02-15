@@ -6,20 +6,26 @@ function App() {
 
   const[gameTurns,setGameTurns]=useState([]);
 
-  const[activePlayer,setactivePlayer]=useState('X');
+  function setGamePlayer(turns){
+    let currentPlayer = 'X';
+
+    if(turns.length>0 && turns[0].player === 'X'){
+      currentPlayer = 'O';
+    }
+    return currentPlayer;
+  }
+
+
+  const activePlayer = setGamePlayer(gameTurns)
+  // const[activePlayer,setactivePlayer]=useState('X');
   
   function handleSelectSquare(rowIndex,colIndex){
-    setactivePlayer((curActivePlayer)=>curActivePlayer==='X'?'O':'X')
+  //  setactivePlayer((curActivePlayer)=>curActivePlayer==='X'?'O':'X')
 
     setGameTurns((prevGameTurns)=>{
-      let currentPlayer = 'X';
+        
+      const currentPlayer = setGamePlayer(prevGameTurns)
 
-      console.log(prevGameTurns.length)
-      console.log(prevGameTurns[0])
-
-      if(prevGameTurns.length>0 && prevGameTurns[0].player === 'X'){
-        currentPlayer = 'O';
-      }
       const returnedGameTurns=[
         { square:{
           row:rowIndex,

@@ -15,7 +15,11 @@ function App() {
 
   const[gameTurns,setGameTurns]=useState([]);
 
-  const gameBoard=initialBoard;
+  function resetMatch(){
+    setGameTurns([])
+  }
+
+  const gameBoard=[...initialBoard.map((array)=>[...array])];
 
   console.log(gameTurns);
   for(const turn of gameTurns){
@@ -79,7 +83,7 @@ function App() {
         </ol>
       </div>
       <div>
-        {(winner || hasDraw)&&<GameOver winner={winner}></GameOver>}
+        {(winner || hasDraw)&&<GameOver winner={winner} resetMatch={resetMatch}></GameOver>}
         <GameBoard onSelectSquare={handleSelectSquare} turns={gameBoard}></GameBoard>
       </div>
     </div>

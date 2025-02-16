@@ -14,6 +14,19 @@ const initialBoard=[
 function App() {
 
   const[gameTurns,setGameTurns]=useState([]);
+  const [playerNameDisplay,setPlayerNameDisplay]=useState({
+    X:'Player 1',
+    O:'Player 2' 
+  });
+  console.log(playerNameDisplay)
+
+  function handlePlayerNameDisplay (symbol,newName){
+    setPlayerNameDisplay(prevPlayerNameDisplay=>{
+      return{
+      ...prevPlayerNameDisplay,
+      [symbol]: newName
+  }})
+  }
 
   function resetMatch(){
     setGameTurns([])
@@ -48,7 +61,7 @@ function App() {
     const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].column]
 
     if(firstSquareSymbol && firstSquareSymbol===secondSquareSymbol && firstSquareSymbol===thirdSquareSymbol){
-      winner=firstSquareSymbol;
+      winner=playerNameDisplay[firstSquareSymbol];
     }
   }
   const hasDraw = gameTurns.length===9 && !winner
@@ -78,8 +91,8 @@ function App() {
     <div id="game-container">
       <div>
         <ol id="players" className="highlight-player">
-          <Player initialName="Player1" symbol="X" isActive={(activePlayer==='X')}></Player>
-          <Player initialName="Player2" symbol="O" isActive={(activePlayer==='O')}></Player>
+          <Player initialName="Player1" symbol="X" isActive={(activePlayer==='X')} onPlayerNameDisplay={handlePlayerNameDisplay}></Player>
+          <Player initialName="Player2" symbol="O" isActive={(activePlayer==='O')} onPlayerNameDisplay={handlePlayerNameDisplay}></Player>
         </ol>
       </div>
       <div>
